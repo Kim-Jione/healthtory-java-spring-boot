@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="healthtory.site.healthtory.domain.post.PostDao">
+
+	<select id="findById"
+		resultType="healthtory.site.healthtory.domain.post.Post">
+		SELECT * FROM post WHERE post_id=#{postId}
+	</select>
+
+	<select id="findAll"
+		resultType="healthtory.site.healthtory.domain.post.Post">
+		SELECT *
+		FROM post 
+		WHERE post_id=#{postId}
+	</select>
+
+	<insert id="insert">
+		INSERT
+		INTO post(post_title,post_content,user_id,category_id,status)
+		VALUES(#{postTitle}, #{postContent},#{userId}, #{categoryId}, #{status})
+	</insert>
+
+    <update id="update">
+          UPDATE post
+		  SET 
+          post_title = #{postTitle},
+          post_content = #{postContent},
+		  user_id = #{userId},
+          category_id = #{categoryId},
+          status = #{status}
+    </update>
+
+	<delete id="delete">
+		DELETE FROM post WHERE post_id = #{postId}
+	</delete>
+
+</mapper>

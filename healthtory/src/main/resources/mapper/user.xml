@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="healthtory.site.healthtory.domain.user.UserDao">
+
+	<select id="findById"
+		resultType="healthtory.site.healthtory.domain.user.User">
+		SELECT * FROM user WHERE user_id=#{userId}
+	</select>
+
+	<select id="findAll"
+		resultType="healthtory.site.healthtory.domain.user.User">
+		SELECT *
+		FROM user 
+		WHERE user_id=#{userId}
+	</select>
+
+	<insert id="insert">
+		INSERT
+		INTO user(login_id, password,name, email, nickname, age, phone_number, birthday, role, gender, profile_img)
+		VALUES(#{loginId},#{password},#{name},#{email},#{nickname},#{age},#{phoneNumber},#{birthday},#{role},#{gender},#{profileImg})
+	</insert>
+
+    <update id="update">
+          UPDATE user
+		  SET 
+          login_id = #{loginId},
+          password = #{password},
+          name = #{name},
+          email = #{email},
+          nickname = #{nickname},
+          age = #{age},
+          phone_number = #{phoneNumber},
+          birthday = #{birthday},
+          role = #{role},
+          gender = #{gender},
+          profile_img = #{profileImg}
+    </update>
+
+	<delete id="delete">
+		DELETE FROM user WHERE user_id = #{userId}
+	</delete>
+
+</mapper>

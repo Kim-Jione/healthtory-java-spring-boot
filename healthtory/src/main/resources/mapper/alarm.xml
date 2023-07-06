@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="healthtory.site.healthtory.domain.alarm.AlarmDao">
+
+	<select id="findById"
+		resultType="healthtory.site.healthtory.domain.alarm.Alarm">
+		SELECT * FROM alarm WHERE alarm_id=#{alarmId}
+	</select>
+
+	<select id="findAll"
+		resultType="healthtory.site.healthtory.domain.alarm.Alarm">
+		SELECT *
+		FROM alarm 
+		WHERE alarm_id=#{alarmId}
+	</select>
+
+	<insert id="insert">
+		INSERT
+		INTO alarm(alarm_content, alarm_type,is_read ,user_id,post_id,comment_id,subscribe_id,qna_id)
+		VALUES(#{alarmContent}, #{alarmType},#{isRead}, #{userId}, #{postId}, #{commentId}, #{subscribeId}, #{qnaId})
+	</insert>
+
+    <update id="update">
+          UPDATE alarm
+		  SET 
+		  alarm_content = #{alarmContent},
+          alarm_type = #{alarmType},
+          is_read = #{isRead},
+          user_id = #{userId},
+          post_id = #{postId},
+          comment_id = #{commentId},
+          subscribe_id = #{subscribeId},
+		  qna_id = #{qnaId}
+    </update>
+
+	<delete id="delete">
+		DELETE FROM alarm WHERE alarm_id = #{alarmId}
+	</delete>
+
+</mapper>

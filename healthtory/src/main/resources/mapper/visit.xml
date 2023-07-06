@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="healthtory.site.healthtory.domain.visit.VisitDao">
+
+	<select id="findById"
+		resultType="healthtory.site.healthtory.domain.visit.Visit">
+		SELECT * FROM visit WHERE visit_id=#{visitId}
+	</select>
+
+	<select id="findAll"
+		resultType="healthtory.site.healthtory.domain.visit.Visit">
+		SELECT *
+		FROM visit
+		WHERE visit_id=#{visitId}
+	</select>
+
+	<insert id="insert">
+		INSERT
+		INTO visit(user_id,post_id, visit_date, duration, referrer, ip_address)
+		VALUES(#{userId},#{postId},#{visitDate},#{duration},#{referrer},#{ipAddress})
+	</insert>
+
+    <update id="update">
+          UPDATE visit
+		  SET 
+          user_id = #{userId},
+          post_id = #{postId},
+          visit_date = #{visitDate},
+          duration = #{duration},
+          referrer = #{referrer},
+          ip_address = #{ipAddress}
+    </update>
+
+	<delete id="delete">
+		DELETE FROM visit WHERE visit_id = #{visitId}
+	</delete>
+
+</mapper>

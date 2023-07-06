@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="healthtory.site.healthtory.domain.category.CategoryDao">
+
+	<select id="findById"
+		resultType="healthtory.site.healthtory.domain.category.Category">
+		SELECT * FROM category WHERE category_id=#{categoryId}
+	</select>
+
+	<select id="findAll"
+		resultType="healthtory.site.healthtory.domain.category.Category">
+		SELECT *
+		FROM category 
+		WHERE category_id=#{categoryId}
+	</select>
+
+	<insert id="insert">
+		INSERT
+		INTO category(category_title,user_id)
+		VALUES(#{categoryTitle}, #{userId})
+	</insert>
+
+    <update id="update">
+          UPDATE category
+		  SET 
+		  category_title = #{categoryTitle},
+          user_id = #{userId}
+    </update>
+
+	<delete id="delete">
+		DELETE FROM category WHERE category_id = #{categoryId}
+	</delete>
+
+</mapper>

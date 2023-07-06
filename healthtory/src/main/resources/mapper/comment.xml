@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="healthtory.site.healthtory.domain.comment.CommentDao">
+
+	<select id="findById"
+		resultType="healthtory.site.healthtory.domain.comment.Comment">
+		SELECT * FROM comment WHERE comment_id=#{commentId}
+	</select>
+
+	<select id="findAll"
+		resultType="healthtory.site.healthtory.domain.comment.Comment">
+		SELECT *
+		FROM comment 
+		WHERE comment_id=#{commentId}
+	</select>
+
+	<insert id="insert">
+		INSERT
+		INTO comment(comment_content, comment_reply,user_id,post_id,qna_id)
+		VALUES(#{commentContent}, #{commentReply},#{userId}, #{postId}, #{qnaId})
+	</insert>
+
+    <update id="update">
+          UPDATE alarm
+		  SET 
+		  comment_content = #{commentContent},
+          comment_reply = #{commentReply},
+          user_id = #{userId},
+          post_id = #{postId},
+		  qna_id = #{qnaId}
+    </update>
+
+	<delete id="delete">
+		DELETE FROM comment WHERE comment_id = #{commentId}
+	</delete>
+
+</mapper>

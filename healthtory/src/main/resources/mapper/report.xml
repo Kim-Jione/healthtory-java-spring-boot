@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="healthtory.site.healthtory.domain.report.ReportDao">
+
+	<select id="findById"
+		resultType="healthtory.site.healthtory.domain.report.Report">
+		SELECT * FROM report WHERE report_id=#{reportId}
+	</select>
+
+	<select id="findAll"
+		resultType="healthtory.site.healthtory.domain.report.Report">
+		SELECT *
+		FROM report 
+		WHERE report_id=#{reportId}
+	</select>
+
+	<insert id="insert">
+		INSERT
+		INTO report(report_content,report_category,user_id,post_id,comment_id)
+		VALUES(#{reportContent}, #{reportCategory},#{userId}, #{postId},#{commentId})
+	</insert>
+
+    <update id="update">
+          UPDATE report
+		  SET 
+          report_content = #{reportContent},
+          report_category = #{reportCategory},
+		  user_id = #{userId},
+          post_id = #{postId},
+		  comment_id = #{commentId}
+    </update>
+
+	<delete id="delete">
+		DELETE FROM report WHERE report_id = #{reportId}
+	</delete>
+
+</mapper>

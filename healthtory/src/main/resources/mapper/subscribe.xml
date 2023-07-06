@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="healthtory.site.healthtory.domain.subscribe.SubscribeDao">
+
+	<select id="findById"
+		resultType="healthtory.site.healthtory.domain.subscribe.Subscribe">
+		SELECT * FROM subscribe WHERE subscribe_id=#{subscribeId}
+	</select>
+
+	<select id="findAll"
+		resultType="healthtory.site.healthtory.domain.subscribe.Subscribe">
+		SELECT *
+		FROM subscribe 
+		WHERE subscribe_id=#{subscribeId}
+	</select>
+
+	<insert id="insert">
+		INSERT
+		INTO report(subscriber_id,creator_id)
+		VALUES(#{subscriberId},#{creatorId})
+	</insert>
+
+    <update id="update">
+          UPDATE subscribe
+		  SET 
+          subscriber_id = #{subscriberId},
+          creator_id = #{creatorId}
+    </update>
+
+	<delete id="delete">
+		DELETE FROM subscribe WHERE subscribe_id = #{subscribeId}
+	</delete>
+
+</mapper>
