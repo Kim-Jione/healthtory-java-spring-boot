@@ -38,5 +38,4 @@ public class UserService {
 		throw new RuntimeException("아이디 혹은 패스워드가 잘못 입력되었습니다.");
     }
 
-    
 }
