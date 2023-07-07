@@ -22,5 +22,9 @@ public class UserService {
         return joinRespDto;
     }
 
+    public User findByUser(String loginId) {
+        return userDao.findByUser(loginId);
+    }
+
     
 }
