@@ -26,7 +26,7 @@ public class UserController {
             return new CMRespDto<>(-1, "이미 존재하는 사용자입니다.", joinByUser);
         }
         JoinReqDto joinRespDto = userService.join(joinReqDto);
-        return new CMRespDto<>(1, "회원가입 성공했습니다.", joinRespDto);
+        return new CMRespDto<>(1, "회원가입 성공", joinRespDto);
     }
     
 }

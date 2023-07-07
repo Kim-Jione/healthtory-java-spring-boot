@@ -16,7 +16,7 @@ public class JoinReqDto {
     private String name;
     private String email;
     private String nickname;
-    private String age;
+    private Integer age;
     private String phoneNumber;
     private Date birthday;
     private String gender;

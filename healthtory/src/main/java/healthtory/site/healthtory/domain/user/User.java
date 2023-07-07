@@ -16,7 +16,7 @@ public class User {
     private String name;
     private String email;
     private String nickname;
-    private String age;
+    private Integer age;
     private String phoneNumber;
     private Date birthday;
     private String role;
@@ -26,7 +26,7 @@ public class User {
     private Timestamp updatedAt;
     
     @Builder
-    public User(String loginId, String password, String name, String email, String nickname, String age,
+    public User(String loginId, String password, String name, String email, String nickname, Integer age,
             String phoneNumber, Date birthday, String gender) {
                 super();
                 this.loginId = loginId;
