@@ -1,8 +1,8 @@
 package healthtory.site.healthtory.web;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -15,8 +15,6 @@ import healthtory.site.healthtory.web.dto.request.user.JoinReqDto;
 import healthtory.site.healthtory.web.dto.request.user.LoginReqDto;
 import healthtory.site.healthtory.web.dto.response.SessionUserDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 @RequiredArgsConstructor
@@ -34,7 +32,7 @@ public class UserController {
         JoinReqDto joinRespDto = userService.join(joinReqDto);
         return new CMRespDto<>(1, "회원가입 성공했습니다.", joinRespDto);
     }
-    
+
     @PostMapping("/user/login")
     public @ResponseBody CMRespDto<?> login(@RequestBody LoginReqDto loginReqDto) {
         User joinByUser = userService.findByUser(loginReqDto.getLoginId());
@@ -44,6 +42,11 @@ public class UserController {
         SessionUserDto principal = userService.login(loginReqDto);
         session.setAttribute("principal", principal);
         return new CMRespDto<>(1, "로그인 성공했습니다.", principal);
+    }
+
+    @GetMapping
+    public CMRespDto<?> loginForm() {
+        return new CMRespDto<>(1, "로그인 화면 불러오기 성공.", null);
     }
 
     @GetMapping("/user/logout")
