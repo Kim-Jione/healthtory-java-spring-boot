@@ -4,7 +4,9 @@ import java.util.List;
 
 public interface  UserDao {
                           
-    public User findById(Integer userId);
+	public User findById(Integer loginId);
+	
+    public User findByUser(String loginId);
 
 	public List<User> findAll();
 
