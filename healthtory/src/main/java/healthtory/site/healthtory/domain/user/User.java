@@ -17,9 +17,7 @@ public class User {
     private String email;
     private String nickname;
     private Integer age;
-    private String phoneNumber;
     private Date birthday;
-    private String role;
     private String gender;
     private String profileImg;
 	private Timestamp createdAt;
@@ -35,7 +33,6 @@ public class User {
                 this.email = email;
                 this.nickname = nickname;
                 this.age = age;
-                this.phoneNumber = phoneNumber;
                 this.birthday = birthday;
                 this.gender = gender;
             }
