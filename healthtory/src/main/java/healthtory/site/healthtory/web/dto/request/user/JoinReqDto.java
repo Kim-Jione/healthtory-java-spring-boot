@@ -13,7 +13,6 @@ import lombok.Setter;
 public class JoinReqDto {
     private String loginId;
     private String password;
-    private String name;
     private String email;
     private String nickname;
     private Integer age;
@@ -21,7 +20,7 @@ public class JoinReqDto {
     private String gender;
 
     public User toUser() {
-        return User.builder().loginId(this.loginId).password(this.password).name(this.name).email(this.email)
+        return User.builder().loginId(this.loginId).password(this.password).email(this.email)
                 .nickname(this.nickname).age(this.age).birthday(this.birthday)
                 .gender(this.gender).build();
     }
@@ -29,7 +28,6 @@ public class JoinReqDto {
     public JoinReqDto(User userPS) {
                 this.loginId = userPS.getLoginId();
                 this.password = userPS.getPassword();
-                this.name = userPS.getName();
                 this.email = userPS.getEmail();
                 this.nickname = userPS.getNickname();
                 this.age = userPS.getAge();

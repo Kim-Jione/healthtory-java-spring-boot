@@ -12,8 +12,10 @@ public class Report {
     private String reportContent;
     private String reportCategory;
 	private Integer userId;
-	private Integer postId;
-    private Integer categoryId;
+    private Integer postId;
+    private Integer qnaId;
+    private Integer commentId;
+    private Integer subscribeId;
 	private Timestamp createdAt;
 	private Timestamp updatedAt;	
 }
