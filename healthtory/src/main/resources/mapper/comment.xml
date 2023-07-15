@@ -18,15 +18,15 @@
 
 	<insert id="insert">
 		INSERT
-		INTO comment(comment_content, comment_reply,user_id,post_id,qna_id)
-		VALUES(#{commentContent}, #{commentReply},#{userId}, #{postId}, #{qnaId})
+		INTO comment(comment_content, parent_comment_id,user_id,post_id,qna_id)
+		VALUES(#{commentContent}, #{parentCommentId},#{userId}, #{postId}, #{qnaId})
 	</insert>
 
     <update id="update">
           UPDATE alarm
 		  SET 
 		  comment_content = #{commentContent},
-          comment_reply = #{commentReply},
+          parent_comment_id = #{parentCommentId},
           user_id = #{userId},
           post_id = #{postId},
 		  qna_id = #{qnaId}
