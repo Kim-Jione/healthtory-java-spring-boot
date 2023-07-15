@@ -4,6 +4,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import healthtory.site.healthtory.domain.user.User;
 import healthtory.site.healthtory.service.UserService;
 import healthtory.site.healthtory.web.dto.CMRespDto;
+import healthtory.site.healthtory.web.dto.request.user.EditReqDto;
 import healthtory.site.healthtory.web.dto.request.user.JoinReqDto;
 import healthtory.site.healthtory.web.dto.request.user.LoginReqDto;
 import healthtory.site.healthtory.web.dto.response.SessionUserDto;
@@ -50,13 +52,13 @@ public class UserController {
     }
 
     @GetMapping("/user/logout")
-	public CMRespDto<?> logout() {
-		SessionUserDto principal = (SessionUserDto) session.getAttribute("principal");
-		if (principal == null) {
-			return new CMRespDto<>(-1, "로그인 상태가 아닙니다.", null);
-		}
-		session.removeAttribute("principal");
-		return new CMRespDto<>(1, "로그아웃 되었습니다.", principal);
-	}
-    
+    public CMRespDto<?> logout() {
+        SessionUserDto principal = (SessionUserDto) session.getAttribute("principal");
+        if (principal == null) {
+            return new CMRespDto<>(-1, "로그인 상태가 아닙니다.", null);
+        }
+        session.removeAttribute("principal");
+        return new CMRespDto<>(1, "로그아웃 되었습니다.", principal);
+    }
+ 
 }
