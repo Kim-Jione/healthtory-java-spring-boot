@@ -4,15 +4,13 @@ import java.util.List;
 
 public interface  AdminDao {
                           
-	public Admin findById(Integer loginId);
+	public Admin findById(Integer adminId);
 	
-    public Admin findByUser(String loginId);
-
 	public List<Admin> findAll();
 
-	public void insert(Admin user);
+	public void insert(Admin admin);
 
-	public void update(Admin user);
+	public void update(Admin admin);
 
-	public void delete(Integer userId);
+	public void delete(Integer adminId);
 }
