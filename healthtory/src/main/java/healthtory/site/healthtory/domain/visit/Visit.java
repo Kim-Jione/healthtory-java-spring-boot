@@ -11,7 +11,6 @@ public class Visit {
     private Integer visitId;
 	private Integer userId;
 	private Integer postId;
-	private Integer visitDate;
 	private Integer duration;
 	private String referrer;
 	private String ipAddress;

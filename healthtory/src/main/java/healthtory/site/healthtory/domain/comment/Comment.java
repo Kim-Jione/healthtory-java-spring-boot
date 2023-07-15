@@ -8,7 +8,7 @@ import lombok.Getter;
 public class Comment {
     private Integer commentId;
 	private String commentContent;
-    private String commentReply;
+    private Integer parentCommentId;
 	private Integer userId;
 	private Integer postId;
 	private Integer qnaId;

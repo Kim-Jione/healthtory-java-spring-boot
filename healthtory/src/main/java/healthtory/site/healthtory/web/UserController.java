@@ -50,13 +50,13 @@ public class UserController {
     }
 
     @GetMapping("/user/logout")
-	public CMRespDto<?> logout() {
-		SessionUserDto principal = (SessionUserDto) session.getAttribute("principal");
-		if (principal == null) {
-			return new CMRespDto<>(-1, "로그인 상태가 아닙니다.", null);
-		}
-		session.removeAttribute("principal");
-		return new CMRespDto<>(1, "로그아웃 되었습니다.", principal);
-	}
-    
+    public CMRespDto<?> logout() {
+        SessionUserDto principal = (SessionUserDto) session.getAttribute("principal");
+        if (principal == null) {
+            return new CMRespDto<>(-1, "로그인 상태가 아닙니다.", null);
+        }
+        session.removeAttribute("principal");
+        return new CMRespDto<>(1, "로그아웃 되었습니다.", principal);
+    }
+ 
 }
