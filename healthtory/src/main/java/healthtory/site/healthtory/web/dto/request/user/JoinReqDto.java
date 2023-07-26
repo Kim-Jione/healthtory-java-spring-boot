@@ -14,13 +14,14 @@ public class JoinReqDto {
     private String loginId;
     private String password;
     private String email;
+    private String interest;
     private String nickname;
     private Integer age;
     private Date birthday;
     private String gender;
 
     public User toUser() {
-        return User.builder().loginId(this.loginId).password(this.password).email(this.email)
+        return User.builder().loginId(this.loginId).password(this.password).email(this.email).insert(this.interest)
                 .nickname(this.nickname).age(this.age).birthday(this.birthday)
                 .gender(this.gender).build();
     }
@@ -29,6 +30,7 @@ public class JoinReqDto {
                 this.loginId = userPS.getLoginId();
                 this.password = userPS.getPassword();
                 this.email = userPS.getEmail();
+                this.interest = userPS.getInterest();
                 this.nickname = userPS.getNickname();
                 this.age = userPS.getAge();
                 this.birthday = userPS.getBirthday();
