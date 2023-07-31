@@ -1,9 +1,12 @@
 package healthtory.site.healthtory.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import healthtory.site.healthtory.domain.user.User;
 import healthtory.site.healthtory.domain.user.UserDao;
+import healthtory.site.healthtory.domain.user_interest.UserInterestDao;
 import healthtory.site.healthtory.util.SHA256;
 import healthtory.site.healthtory.web.dto.request.user.JoinReqDto;
 import healthtory.site.healthtory.web.dto.request.user.LoginReqDto;
@@ -14,11 +17,21 @@ import lombok.RequiredArgsConstructor;
 public class UserService {
     private final SHA256 sha256;
     private final UserDao userDao;
+    private final UserInterestDao userInterestDao;
     
     public JoinReqDto join(JoinReqDto joinReqDto) {
         String enPassword = sha256.encrypt(joinReqDto.getPassword());
         joinReqDto.setPassword(enPassword);
         userDao.insert(joinReqDto.toUser());
+        Integer userId = userDao.findByUser(joinReqDto.getLoginId()).getUserId();
+        List<String> userInterestList = joinReqDto.getUserInterestList();
+        List<Integer> categoryIdList = joinReqDto.getCategoryIdList();
+
+
+        for (int i = 0; i < userInterestList.size(); i++) {
+            userInterestDao.insert(userId, categoryIdList.get(i), userInterestList.get(i));
+        }
+
         User userPS = userDao.findByUser(joinReqDto.getLoginId());
         JoinReqDto joinRespDto = new JoinReqDto(userPS);
         return joinRespDto;

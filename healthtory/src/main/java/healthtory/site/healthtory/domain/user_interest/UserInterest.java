@@ -1,4 +1,4 @@
-package healthtory.site.healthtory.domain.visit;
+package healthtory.site.healthtory.domain.user_interest;
 
 import java.sql.Timestamp;
 
@@ -13,5 +13,5 @@ public class UserInterest {
 	private Integer categoryId;
 	private String interestTitle;
 	private Timestamp createdAt;
-	private Timestamp updatedAt;	
+	private Timestamp updatedAt;
 }
