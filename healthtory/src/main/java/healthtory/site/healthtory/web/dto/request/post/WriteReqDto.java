@@ -14,11 +14,12 @@ public class WriteReqDto {
 	private Integer userId;
     private String postTitle;
     private String postContent;
+    private String postThumbnail;
     private Integer categoryId;
     private String status;
     private List<String> tagList;
 
     public Post toPost() {
-        return Post.builder().userId(this.userId).postTitle(this.postTitle).postContent(this.postContent).categoryId(this.categoryId).status(this.status).build();
+        return Post.builder().userId(this.userId).postTitle(this.postTitle).postContent(this.postContent).postThumbnail(this.postThumbnail).categoryId(this.categoryId).status(this.status).build();
     }
 }
