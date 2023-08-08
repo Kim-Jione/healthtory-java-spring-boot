@@ -20,8 +20,8 @@ public class UserService {
     private final UserInterestDao userInterestDao;
     
     public JoinReqDto join(JoinReqDto joinReqDto) {
-        String enPassword = sha256.encrypt(joinReqDto.getPassword());
-        joinReqDto.setPassword(enPassword);
+        String enPassword = sha256.encrypt(joinReqDto.getPassword()); // 비밀번호 암호화
+        joinReqDto.setPassword(enPassword); // 암호화된 비밀번호로 회원가입
         userDao.insert(joinReqDto.toUser());
         Integer userId = userDao.findByUser(joinReqDto.getLoginId()).getUserId();
         List<String> userInterestList = joinReqDto.getUserInterestList();
@@ -34,6 +34,8 @@ public class UserService {
 
         User userPS = userDao.findByUser(joinReqDto.getLoginId());
         JoinReqDto joinRespDto = new JoinReqDto(userPS);
+        joinRespDto.setCategoryIdList(categoryIdList);
+        joinRespDto.setUserInterestList(userInterestList);
         return joinRespDto;
     }
 

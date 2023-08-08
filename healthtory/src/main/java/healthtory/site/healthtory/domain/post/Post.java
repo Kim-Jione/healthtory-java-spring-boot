@@ -2,6 +2,7 @@ package healthtory.site.healthtory.domain.post;
 
 import java.sql.Timestamp;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -15,5 +16,15 @@ public class Post {
     private Integer categoryId;
     private String status;
 	private Timestamp createdAt;
-	private Timestamp updatedAt;	
+    private Timestamp updatedAt;
+    
+    @Builder
+    public Post(Integer userId,String postTitle, String postContent, Integer categoryId, String status) {
+        super();
+        this.userId = userId;
+        this.postTitle = postTitle;
+        this.postContent = postContent;
+        this.categoryId = categoryId;
+        this.status = status;
+    }
 }
