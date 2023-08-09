@@ -18,15 +18,14 @@
 
 	<insert id="insert">
 		INSERT
-		INTO category(category_title,user_id, created_at, updated_at)
-		VALUES(#{categoryTitle}, #{userId}, now(), now())
+		INTO category(category_title, created_at, updated_at)
+		VALUES(#{categoryTitle},  now(), now())
 	</insert>
 
     <update id="update">
           UPDATE category
 		  SET 
 		  category_title = #{categoryTitle},
-          user_id = #{userId},
 		  updated_at = now()
     </update>
 

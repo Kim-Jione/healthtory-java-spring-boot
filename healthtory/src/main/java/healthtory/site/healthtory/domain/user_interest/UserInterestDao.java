@@ -17,4 +17,5 @@ public interface  UserInterestDao {
 
 	public void delete(Integer userInterestId);
 
+
 }

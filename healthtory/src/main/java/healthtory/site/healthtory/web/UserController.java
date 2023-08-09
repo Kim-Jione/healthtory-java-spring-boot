@@ -44,7 +44,7 @@ public class UserController {
         return new CMRespDto<>(1, "로그인 성공했습니다.", principal);
     }
 
-    @GetMapping
+    @GetMapping("/user/loginForm")
     public CMRespDto<?> loginForm() {
         return new CMRespDto<>(1, "로그인 화면 불러오기 성공.", null);
     }
@@ -58,5 +58,5 @@ public class UserController {
         session.removeAttribute("principal");
         return new CMRespDto<>(1, "로그아웃 되었습니다.", principal);
     }
- 
+
 }
