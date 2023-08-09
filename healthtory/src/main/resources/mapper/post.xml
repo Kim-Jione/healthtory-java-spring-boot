@@ -17,7 +17,7 @@
 	</select>
 
 	<select id="findByPost"
-		resultType="healthtory.site.healthtory.web.dto.request.post.WriteReqDto">
+		resultType="healthtory.site.healthtory.web.dto.response.post.PostRespDto">
 		SELECT * FROM post WHERE post_id=#{postId} AND user_id=#{userId}
 	</select>
 
@@ -36,6 +36,7 @@
           category_id = #{categoryId},
           status = #{status},
 		  updated_at = now()
+		  WHERE post_id = #{postId} AND user_id = #{userId}
     </update>
 
 	<delete id="delete">

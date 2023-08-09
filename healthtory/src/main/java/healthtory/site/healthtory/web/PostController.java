@@ -3,6 +3,7 @@ package healthtory.site.healthtory.web;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,6 +14,7 @@ import healthtory.site.healthtory.web.dto.CMRespDto;
 import healthtory.site.healthtory.web.dto.request.post.UpdateReqDto;
 import healthtory.site.healthtory.web.dto.request.post.WriteReqDto;
 import healthtory.site.healthtory.web.dto.response.SessionUserDto;
+import healthtory.site.healthtory.web.dto.response.post.PostRespDto;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -32,11 +34,11 @@ public class PostController {
         if (principal.getUserId() != writeReqDto.getUserId()) {
             return new CMRespDto<>(-1, "로그인 아이디가 다릅니다.", null);
         }
-        WriteReqDto writeRespDto = postService.write(writeReqDto, principal, file);
+        PostRespDto writeRespDto = postService.write(writeReqDto, principal, file);
         return new CMRespDto<>(1, "게시글 등록에 성공했습니다.", writeRespDto);
     }
 
-    @PostMapping("/post/update")
+    @PutMapping("/post/update")
     public @ResponseBody CMRespDto<?> update(@RequestPart("file") MultipartFile file,@RequestPart("updateReqDto") UpdateReqDto updateReqDto)throws Exception {
         SessionUserDto principal = (SessionUserDto) session.getAttribute("principal");
         if (principal == null) {
@@ -45,7 +47,7 @@ public class PostController {
          if (principal.getUserId() != updateReqDto.getUserId()) {
              return new CMRespDto<>(-1, "로그인 아이디가 다릅니다.", null);
         }
-        UpdateReqDto updateRespDto = postService.update(updateReqDto, principal, file);
-        return new CMRespDto<>(1, "게시글 등록에 성공했습니다.", updateRespDto);
+        PostRespDto updateRespDto = postService.update(updateReqDto, principal, file);
+        return new CMRespDto<>(1, "게시글 수정에 성공했습니다.", updateRespDto);
     }
 }

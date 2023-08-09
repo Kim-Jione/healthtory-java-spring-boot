@@ -4,8 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
-import healthtory.site.healthtory.web.dto.request.post.WriteReqDto;
-import healthtory.site.healthtory.web.dto.response.post.WriteRespDto;
+import healthtory.site.healthtory.web.dto.response.post.PostRespDto;
 
 public interface  PostDao {
               
@@ -19,5 +18,6 @@ public interface  PostDao {
 
 	public void delete(Integer postId);
 
-	public WriteReqDto findByPost(@Param("postId")Integer postId, @Param("userId")Integer userId);
+	public PostRespDto findByPost(@Param("postId") Integer postId, @Param("userId") Integer userId);
+	
 }

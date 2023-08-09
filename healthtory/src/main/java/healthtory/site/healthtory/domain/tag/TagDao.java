@@ -14,6 +14,6 @@ public interface  TagDao {
 
 	public void update(Tag tag);
 
-	public void delete(Integer tagId);
+	public void delete(Integer postId);
 
 }
