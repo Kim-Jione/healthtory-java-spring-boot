@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 public class Category {
     private Integer categoryId;
 	private String categoryTitle;
-	private Integer userId;
 	private Timestamp createdAt;
 	private Timestamp updatedAt;	
 }
