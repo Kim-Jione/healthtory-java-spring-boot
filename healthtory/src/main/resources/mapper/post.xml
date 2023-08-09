@@ -16,6 +16,11 @@
 		WHERE post_id=#{postId}
 	</select>
 
+	<select id="findByPost"
+		resultType="healthtory.site.healthtory.web.dto.request.post.WriteReqDto">
+		SELECT * FROM post WHERE post_id=#{postId} AND user_id=#{userId}
+	</select>
+
 	<insert id="insert">
 		INSERT
 		INTO post(post_title,post_content,user_id,category_id,status, created_at, updated_at)
