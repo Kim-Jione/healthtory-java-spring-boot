@@ -9,6 +9,11 @@
 		SELECT * FROM tag WHERE tag_id=#{tagId}
 	</select>
 
+	<select id="findByTag"
+		resultType="java.lang.String">
+		SELECT tag_name FROM tag WHERE post_id=#{postId}
+	</select>
+
 	<select id="findAll"
 		resultType="healthtory.site.healthtory.domain.tag.Tag">
 		SELECT *

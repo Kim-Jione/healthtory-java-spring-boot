@@ -8,6 +8,8 @@ public interface  TagDao {
                       
     public Tag findById(Integer tagId);
 
+	public List<String> findByTag(Integer postId);
+	
 	public List<Tag> findAll();
 
     public void insert(@Param("tagName")String tagName, @Param("postId")Integer postId);
@@ -15,5 +17,6 @@ public interface  TagDao {
 	public void update(Tag tag);
 
 	public void delete(Integer postId);
+
 
 }

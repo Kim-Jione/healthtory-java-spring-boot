@@ -2,6 +2,7 @@ package healthtory.site.healthtory.web.dto.response.post;
 
 import java.util.List;
 
+import healthtory.site.healthtory.domain.tag.Tag;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
