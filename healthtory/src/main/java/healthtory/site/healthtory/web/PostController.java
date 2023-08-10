@@ -1,8 +1,12 @@
 package healthtory.site.healthtory.web;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -73,5 +77,10 @@ public class PostController {
         }
         PostRespDto postPS2 = postService.deleteByPost(postId, principal);
         return new CMRespDto<>(1, "게시글 삭제에 성공했습니다.", postPS2);
+    }
+
+    @GetMapping("/post/findAll")
+    public @ResponseBody CMRespDto<?> findAll() {
+        return new CMRespDto<>(1, "성공했습니다.", postService.getAllPost());
     }
 }

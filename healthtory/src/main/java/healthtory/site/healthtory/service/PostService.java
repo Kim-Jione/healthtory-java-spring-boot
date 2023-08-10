@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -17,7 +16,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import healthtory.site.healthtory.domain.post.Post;
 import healthtory.site.healthtory.domain.post.PostDao;
-import healthtory.site.healthtory.domain.tag.Tag;
 import healthtory.site.healthtory.domain.tag.TagDao;
 import healthtory.site.healthtory.web.dto.request.post.UpdateReqDto;
 import healthtory.site.healthtory.web.dto.request.post.WriteReqDto;
@@ -154,5 +152,10 @@ public class PostService {
         tagDao.delete(postId);
         postDao.delete(postId);
         return postPS;
+    }
+
+    public List<Post> getAllPost() {
+        List<Post> postList = postDao.findAll();
+        return postList;
     }
 }

@@ -13,7 +13,6 @@
 		resultType="healthtory.site.healthtory.domain.post.Post">
 		SELECT *
 		FROM post 
-		WHERE post_id=#{postId}
 	</select>
 
 	<select id="findByPost"
