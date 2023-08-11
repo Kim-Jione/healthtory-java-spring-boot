@@ -62,81 +62,36 @@ public class PostService {
         return imgName;
     }
     
-    public PostRespDto write(WriteReqDto writeReqDto,SessionUserDto principal, MultipartFile file)throws Exception {
+    public PostRespDto write(WriteReqDto writeReqDto, SessionUserDto principal, MultipartFile file) throws Exception {
         String imgName = saveImage(file);
         writeReqDto.setPostThumbnail(imgName);
-        
         Post post = writeReqDto.toPost();
-        
-        // INSERT 쿼리 실행
-        String sql = "INSERT INTO post (post_title, post_content, post_thumbnail, user_id, category_id, status, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-        
-        KeyHolder keyHolder = new GeneratedKeyHolder();
-        jdbcTemplate.update(connection -> {
-            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setString(1, post.getPostTitle());
-            ps.setString(2, post.getPostContent());
-            ps.setString(3, post.getPostThumbnail());
-            ps.setInt(4, post.getUserId());
-            ps.setInt(5, post.getCategoryId());
-            ps.setString(6, post.getStatus());
-            ps.setTimestamp(7, post.getCreatedAt());
-            ps.setTimestamp(8, post.getUpdatedAt());
-            return ps;
-        }, keyHolder);
-
-        // 자동 생성된 키 값 가져오기
-        Integer postId = keyHolder.getKey().intValue();
-        System.out.println("postId: " + postId);
-
-        // 태그 추가
+        postDao.insert(post);
         List<String> tagList = writeReqDto.getTagList();
+        PostRespDto writeResultDto = postDao.findByPost();
         for (String tagName : tagList) {
-            tagDao.insert(tagName, postId);
+            tagDao.insert(tagName, writeResultDto.getPostId());
         }
-        
-        PostRespDto writeRespDto = postDao.findByPost(postId, principal.getUserId());
-        writeRespDto.setTagList(tagList);
-        return writeRespDto;
+        writeResultDto.setTagList(tagList);
+        return writeResultDto;
 
     }
 
     public PostRespDto update(UpdateReqDto updateReqDto, SessionUserDto principal, MultipartFile file) throws Exception{
         String imgName = saveImage(file);
         updateReqDto.setPostThumbnail(imgName);
-        
         Post post = updateReqDto.toPost();
         postDao.update(post);
-
-       
-        // UPDATE 쿼리 실행
-        String sql = "UPDATE post SET post_title = ?, post_content = ?, post_thumbnail = ?, user_id = ?, category_id = ?, status = ?, created_at = ?, updated_at = ? WHERE user_id = ? AND post_id = ?";
-        KeyHolder keyHolder = new GeneratedKeyHolder();
-        jdbcTemplate.update(connection -> {
-            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setString(1, post.getPostTitle());
-            ps.setString(2, post.getPostContent());
-            ps.setString(3, post.getPostThumbnail());
-            ps.setInt(4, post.getUserId());
-            ps.setInt(5, post.getCategoryId());
-            ps.setString(6, post.getStatus());
-            ps.setTimestamp(7, post.getCreatedAt());
-            ps.setTimestamp(8, post.getUpdatedAt());
-            ps.setInt(9, principal.getUserId()); 
-            ps.setInt(10, updateReqDto.getPostId()); 
-            return ps;
-        }, keyHolder);
-
-        // 태그 수정
         List<String> tagList = updateReqDto.getTagList();
         tagDao.delete(updateReqDto.getPostId());
         for (String tagName : tagList) {
             tagDao.insert(tagName, updateReqDto.getPostId());
         }
         
-        PostRespDto updateRespDto = postDao.findByPost(updateReqDto.getPostId(), principal.getUserId());
-        updateRespDto.setTagList(tagList);
-        return updateRespDto;
+        Post postPS = postDao.findById(updateReqDto.getPostId());
+        PostRespDto updateResultDto = PostRespDto.fromPost(postPS);
+        updateResultDto.setTagList(tagList);
+        return updateResultDto;
     }
 
     public Post findByPost(Integer postId) {
@@ -145,13 +100,13 @@ public class PostService {
     }
 
     public PostRespDto deleteByPost(Integer postId, SessionUserDto principal) {
-        PostRespDto postPS = postDao.findByPost(postId, principal.getUserId());
-
+        Post post = postDao.findById(postId);
+        PostRespDto deleteResult = PostRespDto.fromPost(post);
         List<String> tagPS = tagDao.findByTag(postId);
-        postPS.setTagList(tagPS);
+        deleteResult.setTagList(tagPS);
         tagDao.delete(postId);
         postDao.delete(postId);
-        return postPS;
+        return deleteResult;
     }
 
     public List<Post> getAllPost() {

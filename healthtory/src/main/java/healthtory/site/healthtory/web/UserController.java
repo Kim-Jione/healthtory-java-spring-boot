@@ -35,7 +35,6 @@ public class UserController {
 
     @PostMapping("/user/login")
     public @ResponseBody CMRespDto<?> login(@RequestBody LoginReqDto loginReqDto) {
-        System.out.println("디버그: 로그인 성공");
         User joinByUser = userService.findByUser(loginReqDto.getLoginId());
         if (joinByUser == null) {
             return new CMRespDto<>(-1, "존재하지 않는 사용자입니다.", joinByUser);

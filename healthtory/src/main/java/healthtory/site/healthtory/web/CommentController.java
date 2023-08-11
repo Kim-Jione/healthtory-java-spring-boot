@@ -28,7 +28,6 @@ public class CommentController {
             return new CMRespDto<>(-1, "로그인을 진행해주세요.", null);
         }
         if (principal.getUserId() != writeReqDto.getUserId()) {
-            System.out.println("디버그: "+writeReqDto.getUserId());
             return new CMRespDto<>(-1, "로그인 아이디가 다릅니다.", null);
         }
         CommentRespDto writeResultDto = commentService.write(writeReqDto, principal);

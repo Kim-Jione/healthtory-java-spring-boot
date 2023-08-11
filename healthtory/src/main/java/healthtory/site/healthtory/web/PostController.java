@@ -42,8 +42,8 @@ public class PostController {
         if (principal.getUserId() != writeReqDto.getUserId()) {
             return new CMRespDto<>(-1, "로그인 아이디가 다릅니다.", null);
         }
-        PostRespDto writeRespDto = postService.write(writeReqDto, principal, file);
-        return new CMRespDto<>(1, "게시글 등록에 성공했습니다.", writeRespDto);
+        PostRespDto writeResultDto = postService.write(writeReqDto, principal, file);
+        return new CMRespDto<>(1, "게시글 등록에 성공했습니다.", writeResultDto);
     }
 
     @PutMapping("/post/update")
@@ -56,19 +56,17 @@ public class PostController {
         if (principal.getUserId() != updateReqDto.getUserId()) {
             return new CMRespDto<>(-1, "로그인 아이디가 다릅니다.", null);
         }
-        PostRespDto updateRespDto = postService.update(updateReqDto, principal, file);
-        return new CMRespDto<>(1, "게시글 수정에 성공했습니다.", updateRespDto);
+        PostRespDto updateResultDto = postService.update(updateReqDto, principal, file);
+        return new CMRespDto<>(1, "게시글 수정에 성공했습니다.", updateResultDto);
     }
     
     @DeleteMapping("/post/delete/{postId}")
     public @ResponseBody CMRespDto<?> delete(@PathVariable Integer postId) {
-        System.out.println("디버그: 컨트롤러 진입 성공");
         SessionUserDto principal = (SessionUserDto) session.getAttribute("principal");
         if (principal == null) {
             return new CMRespDto<>(-1, "로그인을 진행해주세요.", null);
         }
         Post postPS = postService.findByPost(postId);
-        System.out.println("디버그: 게시글 찾기 성공");
         if (postPS == null) {
             return new CMRespDto<>(-1, "존재하지 않는 게시물입니다.", null);
         }

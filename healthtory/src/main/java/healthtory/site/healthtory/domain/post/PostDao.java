@@ -18,6 +18,6 @@ public interface  PostDao {
 
 	public void delete(Integer postId);
 
-	public PostRespDto findByPost(@Param("postId") Integer postId, @Param("userId") Integer userId);
+	public PostRespDto findByPost();
 	
 }
