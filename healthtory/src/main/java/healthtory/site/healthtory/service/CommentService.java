@@ -1,6 +1,7 @@
 package healthtory.site.healthtory.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import healthtory.site.healthtory.domain.comment.CommentDao;
 import healthtory.site.healthtory.web.dto.request.comment.WriteReqDto;
@@ -14,9 +15,11 @@ public class CommentService {
     
     private final CommentDao commentDao;
 
-    public CommentRespDto write(WriteReqDto commentReqDto, SessionUserDto principal) {
-        commentDao.insert(commentReqDto.toComment());
-        return null;
+    @Transactional
+    public CommentRespDto write(WriteReqDto writeReqDto, SessionUserDto principal) {
+        commentDao.insert(writeReqDto.toComment());
+        CommentRespDto writeResultDto = commentDao.findByComment();
+        return writeResultDto;
     }
     
 }

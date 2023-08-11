@@ -16,6 +16,13 @@
 		WHERE comment_id=#{commentId}
 	</select>
 
+	<select id="findByComment"
+		resultType="healthtory.site.healthtory.web.dto.response.comment.CommentRespDto">
+		SELECT *
+		FROM comment 
+		WHERE comment_id=LAST_INSERT_ID()
+	</select>
+
 	<insert id="insert">
 		INSERT
 		INTO comment(comment_content, parent_comment_id,user_id,post_id,qna_id, created_at, updated_at)

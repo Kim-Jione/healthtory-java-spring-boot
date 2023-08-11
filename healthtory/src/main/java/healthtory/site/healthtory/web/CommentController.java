@@ -3,6 +3,7 @@ package healthtory.site.healthtory.web;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,15 +22,16 @@ public class CommentController {
     private final CommentService commentService;
 
     @PostMapping("/comment/write")
-    public @ResponseBody CMRespDto<?> write(WriteReqDto commentReqDto) {
+    public @ResponseBody CMRespDto<?> write(@RequestBody WriteReqDto writeReqDto) {
         SessionUserDto principal = (SessionUserDto) session.getAttribute("principal");
         if (principal == null) {
             return new CMRespDto<>(-1, "로그인을 진행해주세요.", null);
         }
-        if (principal.getUserId() != commentReqDto.getUserId()) {
+        if (principal.getUserId() != writeReqDto.getUserId()) {
+            System.out.println("디버그: "+writeReqDto.getUserId());
             return new CMRespDto<>(-1, "로그인 아이디가 다릅니다.", null);
         }
-        CommentRespDto CommentRespDto = commentService.write(commentReqDto, principal);
-        return new CMRespDto<>(21, "댓글 등록에 성공했습니다.", CommentRespDto);
+        CommentRespDto writeResultDto = commentService.write(writeReqDto, principal);
+        return new CMRespDto<>(1, "댓글 등록에 성공했습니다.", writeResultDto);
     }
 }

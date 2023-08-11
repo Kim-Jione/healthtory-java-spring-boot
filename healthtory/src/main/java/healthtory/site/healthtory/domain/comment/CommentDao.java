@@ -2,6 +2,8 @@ package healthtory.site.healthtory.domain.comment;
 
 import java.util.List;
 
+import healthtory.site.healthtory.web.dto.response.comment.CommentRespDto;
+
 public interface  CommentDao {
       
     public Comment findById(Integer commentId);
@@ -12,5 +14,7 @@ public interface  CommentDao {
 
 	public void update(Comment comment);
 
-	public void delete(Integer commentId);  
+	public void delete(Integer commentId);
+
+    public CommentRespDto findByComment();  
 }

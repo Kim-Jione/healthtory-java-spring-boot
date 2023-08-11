@@ -9,8 +9,11 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CommentRespDto {
-	private Integer userId;
-	private Integer postId;
+    private Integer commentId;
+    private Integer postId;
+    private Integer userId;
     private String commentContent;
-    private String parentCommentId;
+    private Integer parentCommentId;
 }
+
+

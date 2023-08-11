@@ -20,7 +20,7 @@ public class Comment {
     public Comment(Integer userId,Integer postId, String commentContent,Integer parentCommentId) {
         super();
         this.userId = userId;
-        this.userId = postId;
+        this.postId = postId;
         this.commentContent = commentContent;
         this.parentCommentId = parentCommentId;
     }
