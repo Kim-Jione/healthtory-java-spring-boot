@@ -23,15 +23,21 @@ public class CommentController {
     private final HttpSession session;
     private final CommentService commentService;
 
-    @PostMapping("/comment/write")
-    public @ResponseBody CMRespDto<?> write(@RequestBody WriteReqDto writeReqDto) {
-        SessionUserDto principal = (SessionUserDto) session.getAttribute("principal");
+    private CMRespDto<?> checkLogin(SessionUserDto principal, Integer userId) {
         if (principal == null) {
             return new CMRespDto<>(-1, "로그인을 진행해주세요.", null);
         }
-        if (principal.getUserId() != writeReqDto.getUserId()) {
+        if (principal.getUserId() != userId) {
             return new CMRespDto<>(-1, "로그인 아이디가 다릅니다.", null);
         }
+        return null;
+    }
+    
+
+    @PostMapping("/comment/write")
+    public @ResponseBody CMRespDto<?> write(@RequestBody WriteReqDto writeReqDto) {
+        SessionUserDto principal = (SessionUserDto) session.getAttribute("principal");
+        checkLogin(principal, writeReqDto.getUserId());
         CommentRespDto writeResultDto = commentService.write(writeReqDto, principal);
         return new CMRespDto<>(1, "댓글 등록에 성공했습니다.", writeResultDto);
     }
@@ -39,12 +45,7 @@ public class CommentController {
     @PutMapping("/comment/update")
     public @ResponseBody CMRespDto<?> update(@RequestBody UpdateReqDto updateReqDto)  {
         SessionUserDto principal = (SessionUserDto) session.getAttribute("principal");
-        if (principal == null) {
-            return new CMRespDto<>(-1, "로그인을 진행해주세요.", null);
-        }
-        if (principal.getUserId() != updateReqDto.getUserId()) {
-            return new CMRespDto<>(-1, "로그인 아이디가 다릅니다.", null);
-        }
+        checkLogin(principal, updateReqDto.getUserId());
         CommentRespDto updateResultDto = commentService.update(updateReqDto);
             return new CMRespDto<>(1, "댓글 수정에 성공했습니다.", updateResultDto);
     }

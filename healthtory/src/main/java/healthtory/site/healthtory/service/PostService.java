@@ -12,6 +12,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import healthtory.site.healthtory.domain.post.Post;
@@ -31,6 +32,7 @@ public class PostService {
     private final PostDao postDao;
     private final JdbcTemplate jdbcTemplate;
     
+    @Transactional
     private String saveImage(MultipartFile file) throws Exception {
         Integer pos = file.getOriginalFilename().lastIndexOf(".");
         String extension = file.getOriginalFilename().substring(pos + 1);
@@ -62,6 +64,7 @@ public class PostService {
         return imgName;
     }
     
+    @Transactional
     public PostRespDto write(WriteReqDto writeReqDto, SessionUserDto principal, MultipartFile file) throws Exception {
         String imgName = saveImage(file);
         writeReqDto.setPostThumbnail(imgName);
@@ -77,7 +80,9 @@ public class PostService {
 
     }
 
-    public PostRespDto update(UpdateReqDto updateReqDto, SessionUserDto principal, MultipartFile file) throws Exception{
+    @Transactional
+    public PostRespDto update(UpdateReqDto updateReqDto, SessionUserDto principal, MultipartFile file)
+            throws Exception {
         String imgName = saveImage(file);
         updateReqDto.setPostThumbnail(imgName);
         Post post = updateReqDto.toPost();
@@ -87,18 +92,20 @@ public class PostService {
         for (String tagName : tagList) {
             tagDao.insert(tagName, updateReqDto.getPostId());
         }
-        
+
         Post postPS = postDao.findById(updateReqDto.getPostId());
         PostRespDto updateResultDto = PostRespDto.fromPost(postPS);
         updateResultDto.setTagList(tagList);
         return updateResultDto;
     }
 
+    @Transactional
     public Post findByPost(Integer postId) {
         Post postPS = postDao.findById(postId);
         return postPS;
     }
 
+    @Transactional
     public PostRespDto deleteByPost(Integer postId, SessionUserDto principal) {
         Post post = postDao.findById(postId);
         PostRespDto deleteResult = PostRespDto.fromPost(post);
@@ -109,6 +116,7 @@ public class PostService {
         return deleteResult;
     }
 
+    @Transactional
     public List<Post> getAllPost() {
         List<Post> postList = postDao.findAll();
         return postList;
