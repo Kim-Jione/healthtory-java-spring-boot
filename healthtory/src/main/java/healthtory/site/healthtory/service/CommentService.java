@@ -29,8 +29,16 @@ public class CommentService {
         Comment comment = updateReqDto.toComment();
         commentDao.update(comment);
         Comment commentPS = commentDao.findById(updateReqDto.getCommentId());
-        CommentRespDto updateResultDto = CommentRespDto.fromComment(commentPS); 
+        CommentRespDto updateResultDto = CommentRespDto.fromComment(commentPS);
         return updateResultDto;
+    }
+    
+    @Transactional
+    public CommentRespDto deleteByComment(Integer commentId, SessionUserDto principal) {
+        Comment comment = commentDao.findById(commentId);
+        CommentRespDto deleteResult = CommentRespDto.fromComment(comment);
+        commentDao.delete(commentId);
+        return deleteResult;
     }
     
 }
