@@ -2,8 +2,6 @@ package healthtory.site.healthtory.domain.post;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
-
 import healthtory.site.healthtory.web.dto.response.post.PostRespDto;
 
 public interface  PostDao {
@@ -18,6 +16,6 @@ public interface  PostDao {
 
 	public void delete(Integer postId);
 
-	public PostRespDto findByPost(@Param("postId") Integer postId, @Param("userId") Integer userId);
+	public PostRespDto findByPost();
 	
 }
