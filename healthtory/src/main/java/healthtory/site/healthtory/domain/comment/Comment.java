@@ -1,5 +1,4 @@
 package healthtory.site.healthtory.domain.comment;
-
 import java.sql.Timestamp;
 
 import lombok.Builder;
@@ -17,8 +16,9 @@ public class Comment {
 	private Timestamp updatedAt;
 	
 	@Builder
-    public Comment(Integer userId,Integer postId, String commentContent,Integer parentCommentId) {
+    public Comment(Integer commentId,Integer userId,Integer postId, String commentContent,Integer parentCommentId) {
         super();
+        this.commentId = commentId;
         this.userId = userId;
         this.postId = postId;
         this.commentContent = commentContent;

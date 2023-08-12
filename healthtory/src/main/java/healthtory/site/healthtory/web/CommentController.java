@@ -3,12 +3,14 @@ package healthtory.site.healthtory.web;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import healthtory.site.healthtory.service.CommentService;
 import healthtory.site.healthtory.web.dto.CMRespDto;
+import healthtory.site.healthtory.web.dto.request.comment.UpdateReqDto;
 import healthtory.site.healthtory.web.dto.request.comment.WriteReqDto;
 import healthtory.site.healthtory.web.dto.response.SessionUserDto;
 import healthtory.site.healthtory.web.dto.response.comment.CommentRespDto;
@@ -32,5 +34,18 @@ public class CommentController {
         }
         CommentRespDto writeResultDto = commentService.write(writeReqDto, principal);
         return new CMRespDto<>(1, "댓글 등록에 성공했습니다.", writeResultDto);
+    }
+
+    @PutMapping("/comment/update")
+    public @ResponseBody CMRespDto<?> update(@RequestBody UpdateReqDto updateReqDto)  {
+        SessionUserDto principal = (SessionUserDto) session.getAttribute("principal");
+        if (principal == null) {
+            return new CMRespDto<>(-1, "로그인을 진행해주세요.", null);
+        }
+        if (principal.getUserId() != updateReqDto.getUserId()) {
+            return new CMRespDto<>(-1, "로그인 아이디가 다릅니다.", null);
+        }
+        CommentRespDto updateResultDto = commentService.update(updateReqDto);
+            return new CMRespDto<>(1, "댓글 수정에 성공했습니다.", updateResultDto);
     }
 }

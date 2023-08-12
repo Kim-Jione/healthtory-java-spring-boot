@@ -2,8 +2,6 @@ package healthtory.site.healthtory.domain.post;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
-
 import healthtory.site.healthtory.web.dto.response.post.PostRespDto;
 
 public interface  PostDao {

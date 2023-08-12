@@ -30,7 +30,7 @@
 	</insert>
 
     <update id="update">
-          UPDATE alarm
+          UPDATE comment
 		  SET 
 		  comment_content = #{commentContent},
           parent_comment_id = #{parentCommentId},
@@ -38,6 +38,7 @@
           post_id = #{postId},
 		  qna_id = #{qnaId},
 		  updated_at = now()
+		  where comment_id=#{commentId}
     </update>
 
 	<delete id="delete">
