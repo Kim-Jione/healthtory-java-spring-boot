@@ -16,9 +16,17 @@
 		WHERE subscribe_id=#{subscribeId}
 	</select>
 
+	<select id="findByUserId"
+		resultType="Integer">
+        SELECT subscribe_id
+    	FROM subscribe
+    	WHERE subscriber_id = #{subscriberId} AND creator_id = #{creatorId}
+	</select>
+	
+
 	<insert id="insert">
 		INSERT
-		INTO report(subscriber_id,creator_id, created_at, updated_at)
+		INTO subscribe(subscriber_id,creator_id, created_at, updated_at)
 		VALUES(#{subscriberId},#{creatorId}, now(), now())
 	</insert>
 
