@@ -16,6 +16,14 @@
 		WHERE report_id=#{reportId}
 	</select>
 
+
+	<select id="findByReport"
+		resultType="healthtory.site.healthtory.web.dto.response.report.ReportRespDto">
+		SELECT *
+		FROM report 
+		WHERE report_id=LAST_INSERT_ID()
+	</select>
+
 	<insert id="insert">
 		INSERT
 		INTO report(report_content,report_category,user_id,post_id,comment_id, qna_id, created_at, updated_at)
