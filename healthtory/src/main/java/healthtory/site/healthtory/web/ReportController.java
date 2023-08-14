@@ -21,8 +21,8 @@ public class ReportController {
     private final HttpSession session;
     private final ReportService reportService;
 
-    @PostMapping("/report/write")
-    public @ResponseBody CMRespDto<?> write(@RequestBody ReportReqDto reportReqDto){
+    @PostMapping("/report/all")
+    public @ResponseBody CMRespDto<?> report(@RequestBody ReportReqDto reportReqDto){
         SessionUserDto principal = (SessionUserDto) session.getAttribute("principal");
         if (principal == null || reportReqDto.getUserId() == null) {
             return new CMRespDto<>(-1, "로그인을 진행해주세요.", null);
