@@ -3,14 +3,9 @@ package healthtory.site.healthtory.service;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.sql.PreparedStatement;
-import java.sql.Statement;
 import java.util.List;
 import java.util.UUID;
 
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -30,7 +25,6 @@ public class PostService {
 
     private final TagDao tagDao;
     private final PostDao postDao;
-    private final JdbcTemplate jdbcTemplate;
     
     @Transactional
     private String saveImage(MultipartFile file) throws Exception {
@@ -97,12 +91,6 @@ public class PostService {
         PostRespDto updateResultDto = PostRespDto.fromPost(postPS);
         updateResultDto.setTagList(tagList);
         return updateResultDto;
-    }
-
-    @Transactional
-    public Post findByPost(Integer postId) {
-        Post postPS = postDao.findById(postId);
-        return postPS;
     }
 
     @Transactional

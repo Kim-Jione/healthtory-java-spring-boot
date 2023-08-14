@@ -1,6 +1,7 @@
 package healthtory.site.healthtory.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import healthtory.site.healthtory.domain.love.Love;
 import healthtory.site.healthtory.domain.love.LoveDao;
@@ -12,6 +13,7 @@ public class LoveService {
 
     private final LoveDao loveDao;
 
+    @Transactional
     public Love love(Integer userId, Integer postId) {
         Love love = new Love(userId, postId);
         loveDao.insert(love);
@@ -20,10 +22,12 @@ public class LoveService {
         return lovePS;
     }
 
+    @Transactional
     public Integer findById(Integer userId, Integer postId) {
         return loveDao.findByLoveId(userId, postId);
     }
 
+    @Transactional
     public Love unLove(Integer loveId) {
         Love lovePS = loveDao.findById(loveId);
         loveDao.delete(lovePS.getLoveId());

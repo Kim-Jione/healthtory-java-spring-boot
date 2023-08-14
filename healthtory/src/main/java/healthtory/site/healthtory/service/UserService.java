@@ -3,6 +3,7 @@ package healthtory.site.healthtory.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import healthtory.site.healthtory.domain.user.User;
 import healthtory.site.healthtory.domain.user.UserDao;
@@ -19,6 +20,7 @@ public class UserService {
     private final UserDao userDao;
     private final UserInterestDao userInterestDao;
     
+    @Transactional
     public JoinReqDto join(JoinReqDto joinReqDto) {
         String enPassword = sha256.encrypt(joinReqDto.getPassword()); // 비밀번호 암호화
         joinReqDto.setPassword(enPassword); // 암호화된 비밀번호로 회원가입
@@ -26,7 +28,6 @@ public class UserService {
         Integer userId = userDao.findByUser(joinReqDto.getLoginId()).getUserId();
         List<String> userInterestList = joinReqDto.getUserInterestList();
         List<Integer> categoryIdList = joinReqDto.getCategoryIdList();
-
 
         for (int i = 0; i < userInterestList.size(); i++) {
             userInterestDao.insert(userId, categoryIdList.get(i), userInterestList.get(i));
@@ -39,10 +40,12 @@ public class UserService {
         return joinRespDto;
     }
 
+    @Transactional
     public User findByUser(String loginId) {
         return userDao.findByUser(loginId);
     }
 
+    @Transactional
     public SessionUserDto login(LoginReqDto loginReqDto) {
 		// String encPassword = sha256.encrypt(loginReqDto.getPassword());
 		User userPS = userDao.findByUser(loginReqDto.getLoginId());
