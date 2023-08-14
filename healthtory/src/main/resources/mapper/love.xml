@@ -16,8 +16,8 @@
 		WHERE love_id=#{loveId}
 	</select>
 
-	<select id="findByLove"
-		resultType="healthtory.site.healthtory.domain.love.Love">
+	<select id="findByLoveId"
+		resultType="Integer">
 		SELECT *
 		FROM love 
 		WHERE user_id=#{userId} AND post_id = #{postId}

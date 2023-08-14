@@ -12,9 +12,21 @@ public class LoveService {
 
     private final LoveDao loveDao;
 
-    public Love love(Love love) {
+    public Love love(Integer userId, Integer postId) {
+        Love love = new Love(userId, postId);
         loveDao.insert(love);
-        Love lovePS = loveDao.findByLove(love.getUserId(), love.getPostId());
+        Integer loveId = loveDao.findByLoveId(love.getUserId(), love.getPostId());
+        Love lovePS = loveDao.findById(loveId);
+        return lovePS;
+    }
+
+    public Integer findById(Integer userId, Integer postId) {
+        return loveDao.findByLoveId(userId, postId);
+    }
+
+    public Love unLove(Integer loveId) {
+        Love lovePS = loveDao.findById(loveId);
+        loveDao.delete(lovePS.getLoveId());
         return lovePS;
     }
 

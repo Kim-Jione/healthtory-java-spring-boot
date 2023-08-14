@@ -21,15 +21,19 @@ public class LoveController {
     private final LoveService loveService;
     
     @PostMapping("/love/{postId}")
-	public @ResponseBody CMRespDto<?> insertLove(@PathVariable Integer postId) {
+	public @ResponseBody CMRespDto<?> love(@PathVariable Integer postId) {
 
         SessionUserDto principal = (SessionUserDto) session.getAttribute("principal");
         if (principal == null) {
             return new CMRespDto<>(-1, "로그인을 진행해주세요.", null);
         }
-		Love love = new Love(principal.getUserId(), postId);
-
-		Love lovePS = loveService.love(love);
-		return new CMRespDto<>(1, "좋아요 성공", lovePS);
+        Integer loveId = loveService.findById(principal.getUserId(), postId);
+        if (loveId == null) {
+            Love lovePS = loveService.love(principal.getUserId(), postId);
+            return new CMRespDto<>(1, "좋아요 성공", lovePS);
+        }
+        
+        Love lovePS = loveService.unLove(loveId);
+        return new CMRespDto<>(1, "좋아요 취소 성공", lovePS);
 	}
 }
