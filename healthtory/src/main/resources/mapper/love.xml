@@ -16,6 +16,13 @@
 		WHERE love_id=#{loveId}
 	</select>
 
+	<select id="findByLove"
+		resultType="healthtory.site.healthtory.domain.love.Love">
+		SELECT *
+		FROM love 
+		WHERE user_id=#{userId} AND post_id = #{postId}
+	</select>
+
 	<insert id="insert">
 		INSERT
 		INTO love(user_id,post_id, created_at, updated_at)
