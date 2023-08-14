@@ -8,9 +8,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Getter
 public class Subscribe {
+
     private Integer subscribeId;
-	private Integer subscriber_id;
-	private Integer creator_id;
+	private Integer subscriberId;
+	private Integer creatorId;
 	private Timestamp createdAt;
-	private Timestamp updatedAt;	
+	private Timestamp updatedAt;
+	
+	public Subscribe(Integer subscriberId, Integer creatorId) {
+		this.subscriberId = subscriberId;
+		this.creatorId = creatorId;
+	}
 }
