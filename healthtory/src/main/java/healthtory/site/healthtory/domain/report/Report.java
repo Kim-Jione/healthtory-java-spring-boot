@@ -2,6 +2,7 @@ package healthtory.site.healthtory.domain.report;
 
 import java.sql.Timestamp;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -17,5 +18,17 @@ public class Report {
     private Integer commentId;
     private Integer subscribeId;
 	private Timestamp createdAt;
-	private Timestamp updatedAt;	
+    private Timestamp updatedAt;
+    
+    @Builder
+    public Report(String reportContent, String reportCategory, Integer userId, Integer postId, Integer qnaId, Integer commentId, Integer subscribeId) {
+        super();
+        this.reportContent = reportContent;    
+        this.reportCategory = reportCategory;
+        this.userId = userId;
+        this.postId = postId;
+        this.qnaId = qnaId;
+        this.commentId = commentId;
+        this.subscribeId = commentId;
+    }
 }
