@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import healthtory.site.healthtory.domain.qna.Qna;
 import healthtory.site.healthtory.domain.qna.QnaDao;
+import healthtory.site.healthtory.web.dto.request.qna.UpdateReqDto;
 import healthtory.site.healthtory.web.dto.request.qna.WriteReqDto;
 import healthtory.site.healthtory.web.dto.response.SessionUserDto;
 import healthtory.site.healthtory.web.dto.response.qna.QnaRespDto;
@@ -62,6 +63,20 @@ public class QnaService {
         qnaDao.insert(qna);
         QnaRespDto writeResultDto = qnaDao.findByQna();
         return writeResultDto;
+    }
+
+    public QnaRespDto update(UpdateReqDto updateReqDto, SessionUserDto principal, MultipartFile file)throws Exception {
+        System.out.println("디버그 updateReqDto.getQnaId: "+updateReqDto.getQnaId());
+        String imgName = saveImage(file);
+        updateReqDto.setQnaImg(imgName);
+        Qna qna = updateReqDto.toQna();
+        System.out.println("디버그 getQnaId: "+qna.getQnaId());
+        System.out.println("디버그 getQnaTitle: "+qna.getQnaTitle());
+        System.out.println("디버그 getQnaContent: "+qna.getQnaContent());
+        qnaDao.update(qna);
+        Qna qnaPS = qnaDao.findById(updateReqDto.getQnaId());
+        QnaRespDto qnaRespDto = QnaRespDto.fromQna(qnaPS);
+        return qnaRespDto;
     }
     
 }

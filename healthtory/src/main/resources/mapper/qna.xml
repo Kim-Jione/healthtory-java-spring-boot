@@ -38,6 +38,7 @@
 		  user_id = #{userId},
           category_id = #{categoryId},
 		  updated_at = now()
+		  WHERE qna_id = #{qnaId}
     </update>
 
 	<delete id="delete">

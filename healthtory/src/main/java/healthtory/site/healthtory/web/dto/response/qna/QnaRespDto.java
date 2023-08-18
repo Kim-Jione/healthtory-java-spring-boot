@@ -10,6 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class QnaRespDto {
+    private Integer qnaId;
     private String qnaTitle;
     private String qnaContent;
     private String qnaImg;
@@ -20,6 +21,7 @@ public class QnaRespDto {
 
     public static QnaRespDto fromQna(Qna qna) {
         QnaRespDto qnaRespDto = new QnaRespDto();
+        qnaRespDto.setQnaId(qna.getQnaId());
         qnaRespDto.setQnaTitle(qna.getQnaTitle());
         qnaRespDto.setQnaContent(qna.getQnaContent());
         qnaRespDto.setQnaImg(qna.getQnaImg());

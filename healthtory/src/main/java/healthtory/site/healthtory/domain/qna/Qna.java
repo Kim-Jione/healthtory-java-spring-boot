@@ -19,8 +19,9 @@ public class Qna {
     private Timestamp updatedAt;
     
     @Builder
-    public Qna(String qnaTitle, String qnaContent, String qnaImg, Integer userId,Integer categoryId) {
+    public Qna(Integer qnaId, String qnaTitle, String qnaContent, String qnaImg, Integer userId,Integer categoryId) {
         super();
+        this.qnaId = qnaId;
         this.qnaTitle = qnaTitle;
         this.qnaContent = qnaContent;
         this.qnaImg = qnaImg;
