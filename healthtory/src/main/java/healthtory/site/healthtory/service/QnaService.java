@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import healthtory.site.healthtory.domain.comment.CommentDao;
 import healthtory.site.healthtory.domain.qna.Qna;
 import healthtory.site.healthtory.domain.qna.QnaDao;
 import healthtory.site.healthtory.web.dto.request.qna.UpdateReqDto;
@@ -22,6 +23,7 @@ import lombok.RequiredArgsConstructor;
 public class QnaService {
 
     private final QnaDao qnaDao;
+    private final CommentDao commentDao;
 
     @Transactional
     private String saveImage(MultipartFile file) throws Exception {
@@ -56,7 +58,7 @@ public class QnaService {
     }
     
     @Transactional
-    public QnaRespDto write(WriteReqDto writeReqDto, SessionUserDto principal, MultipartFile file)throws Exception {
+    public QnaRespDto write(WriteReqDto writeReqDto, SessionUserDto principal, MultipartFile file) throws Exception {
         String imgName = saveImage(file);
         writeReqDto.setQnaImg(imgName);
         Qna qna = writeReqDto.toQna();
@@ -65,18 +67,24 @@ public class QnaService {
         return writeResultDto;
     }
 
-    public QnaRespDto update(UpdateReqDto updateReqDto, SessionUserDto principal, MultipartFile file)throws Exception {
-        System.out.println("디버그 updateReqDto.getQnaId: "+updateReqDto.getQnaId());
+    @Transactional
+    public QnaRespDto update(UpdateReqDto updateReqDto, SessionUserDto principal, MultipartFile file) throws Exception {
         String imgName = saveImage(file);
         updateReqDto.setQnaImg(imgName);
         Qna qna = updateReqDto.toQna();
-        System.out.println("디버그 getQnaId: "+qna.getQnaId());
-        System.out.println("디버그 getQnaTitle: "+qna.getQnaTitle());
-        System.out.println("디버그 getQnaContent: "+qna.getQnaContent());
         qnaDao.update(qna);
         Qna qnaPS = qnaDao.findById(updateReqDto.getQnaId());
         QnaRespDto qnaRespDto = QnaRespDto.fromQna(qnaPS);
         return qnaRespDto;
+    }
+    
+    @Transactional
+    public QnaRespDto deleteByQna(Integer qnaId, SessionUserDto principal) {
+        Qna qna = qnaDao.findById(qnaId);
+        QnaRespDto delteResult = QnaRespDto.fromQna(qna);
+        qnaDao.delete(qnaId);
+        commentDao.deleteByComment(qnaId);
+        return delteResult;
     }
     
 }

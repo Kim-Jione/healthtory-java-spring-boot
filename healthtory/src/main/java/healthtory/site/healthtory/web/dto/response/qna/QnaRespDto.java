@@ -27,6 +27,8 @@ public class QnaRespDto {
         qnaRespDto.setQnaImg(qna.getQnaImg());
         qnaRespDto.setUserId(qna.getUserId());
         qnaRespDto.setCategoryId(qna.getCategoryId());
+        qnaRespDto.setCreatedAt(qna.getCreatedAt());
+        qnaRespDto.setUpdatedAt(qna.getUpdatedAt());
         return qnaRespDto;
     }
 }
