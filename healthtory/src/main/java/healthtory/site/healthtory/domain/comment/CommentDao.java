@@ -8,6 +8,8 @@ public interface  CommentDao {
       
     public Comment findById(Integer commentId);
 
+	public CommentRespDto findByComment();
+	
 	public List<Comment> findAll();
 
 	public void insert(Comment comment);
@@ -16,5 +18,5 @@ public interface  CommentDao {
 
 	public void delete(Integer commentId);
 
-    public CommentRespDto findByComment();  
+    public void deleteByComment(Integer qnaId);  
 }

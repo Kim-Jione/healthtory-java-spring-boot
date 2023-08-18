@@ -45,4 +45,8 @@
 		DELETE FROM comment WHERE comment_id = #{commentId}
 	</delete>
 
+	<delete id="deleteByComment">
+		DELETE FROM comment WHERE qna_id = #{qnaId}
+	</delete>
+
 </mapper>
