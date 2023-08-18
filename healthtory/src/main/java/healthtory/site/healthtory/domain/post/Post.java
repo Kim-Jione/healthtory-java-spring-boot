@@ -20,8 +20,9 @@ public class Post {
     private Timestamp updatedAt;
     
     @Builder
-    public Post(Integer userId,String postTitle, String postContent, String postThumbnail, Integer categoryId, String status) {
+    public Post(Integer postId, Integer userId,String postTitle, String postContent, String postThumbnail, Integer categoryId, String status) {
         super();
+        this.postId = postId;
         this.userId = userId;
         this.postTitle = postTitle;
         this.postContent = postContent;

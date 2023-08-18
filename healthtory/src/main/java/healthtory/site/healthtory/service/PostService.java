@@ -104,9 +104,4 @@ public class PostService {
         return deleteResult;
     }
 
-    @Transactional
-    public List<Post> getAllPost() {
-        List<Post> postList = postDao.findAll();
-        return postList;
-    }
 }

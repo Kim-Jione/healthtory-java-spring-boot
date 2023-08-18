@@ -21,6 +21,6 @@ public class UpdateReqDto {
     private List<String> tagList;
 
     public Post toPost() {
-        return Post.builder().userId(this.userId).postTitle(this.postTitle).postContent(this.postContent).postThumbnail(this.postThumbnail).categoryId(this.categoryId).status(this.status).build();
+        return Post.builder().postId(this.postId).userId(this.userId).postTitle(this.postTitle).postContent(this.postContent).postThumbnail(this.postThumbnail).categoryId(this.categoryId).status(this.status).build();
     }
 }
