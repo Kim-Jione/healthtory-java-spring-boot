@@ -36,8 +36,8 @@ public class PostController {
         if (principal.getUserId() != writeReqDto.getUserId()) {
             return new CMRespDto<>(-1, "로그인 아이디가 다릅니다.", null);
         }
-        PostRespDto writeResultDto = postService.write(writeReqDto, principal, file);
-        return new CMRespDto<>(1, "게시글 등록에 성공했습니다.", writeResultDto);
+        PostRespDto writeResult = postService.write(writeReqDto, principal, file);
+        return new CMRespDto<>(1, "게시글 등록에 성공했습니다.", writeResult);
     }   
 
     @PutMapping("/post/update")
@@ -50,8 +50,8 @@ public class PostController {
         if (principal.getUserId() != updateReqDto.getUserId()) {
             return new CMRespDto<>(-1, "로그인 아이디가 다릅니다.", null);
         }
-        PostRespDto updateResultDto = postService.update(updateReqDto, principal, file);
-        return new CMRespDto<>(1, "게시글 수정에 성공했습니다.", updateResultDto);
+        PostRespDto updateResult = postService.update(updateReqDto, principal, file);
+        return new CMRespDto<>(1, "게시글 수정에 성공했습니다.", updateResult);
     }
     
     @DeleteMapping("/post/delete/{postId}")
@@ -63,7 +63,7 @@ public class PostController {
         if (principal.getUserId() != principal.getUserId()) {
             return new CMRespDto<>(-1, "로그인 아이디가 다릅니다.", null);
         }
-        PostRespDto postPS = postService.deleteByPost(postId, principal);
-        return new CMRespDto<>(1, "게시글 삭제에 성공했습니다.", postPS);
+        PostRespDto deleteResult = postService.deleteByPost(postId, principal);
+        return new CMRespDto<>(1, "게시글 삭제에 성공했습니다.", deleteResult);
     }
 }

@@ -23,8 +23,8 @@
 
 	<insert id="insert">
 		INSERT
-		INTO user(email, nickname, age, birthday, gender, profile_img, created_at, updated_at)
-		VALUES(#{email},#{nickname},#{age}, #{birthday}, #{gender},#{profileImg}, now(), now())
+		INTO user(login_id, password, email, nickname, age, birthday, gender, profile_img, created_at, updated_at)
+		VALUES(#{loginId}, #{password}, #{email},#{nickname},#{age}, #{birthday}, #{gender},#{profileImg}, now(), now());
 	</insert>
 
     <update id="update">

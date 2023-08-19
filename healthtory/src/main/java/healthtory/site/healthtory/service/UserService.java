@@ -5,11 +5,11 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import healthtory.site.healthtory.domain.post.PostDao;
 import healthtory.site.healthtory.domain.user.User;
 import healthtory.site.healthtory.domain.user.UserDao;
 import healthtory.site.healthtory.domain.user_interest.UserInterestDao;
 import healthtory.site.healthtory.util.SHA256;
-import healthtory.site.healthtory.web.dto.request.post.UpdateReqDto;
 import healthtory.site.healthtory.web.dto.request.user.JoinReqDto;
 import healthtory.site.healthtory.web.dto.request.user.LoginReqDto;
 import healthtory.site.healthtory.web.dto.request.user.PersonalUpdateReqDto;
@@ -21,6 +21,7 @@ import lombok.RequiredArgsConstructor;
 public class UserService {
     private final SHA256 sha256;
     private final UserDao userDao;
+    private final PostDao postDao;
     private final UserInterestDao userInterestDao;
     
     @Transactional
@@ -61,8 +62,6 @@ public class UserService {
 
     public UserRespDto update(PersonalUpdateReqDto personalUpdateReqDto, SessionUserDto principal) {
         User user = personalUpdateReqDto.toUser();
-        System.out.println("디버그 getUserId: "+user.getUserId());
-        System.out.println("디버그 getLoginId: "+user.getLoginId());
         userDao.update(user);
         List<String> interestTitleList = personalUpdateReqDto.getUserInterestList();
         List<Integer> categoryIdList = personalUpdateReqDto.getCategoryIdList();
@@ -75,6 +74,10 @@ public class UserService {
         updateResult.setCategoryIdList(categoryIdList);
         updateResult.setInterestTitleList(interestTitleList);
         return updateResult;
+    }
+
+    public void deleteByUser(Integer userId, SessionUserDto principal) {
+        userDao.delete(userId);
     }
 
 }

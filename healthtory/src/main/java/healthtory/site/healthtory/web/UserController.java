@@ -2,7 +2,9 @@ package healthtory.site.healthtory.web;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,6 +18,7 @@ import healthtory.site.healthtory.web.dto.request.user.JoinReqDto;
 import healthtory.site.healthtory.web.dto.request.user.LoginReqDto;
 import healthtory.site.healthtory.web.dto.request.user.PersonalUpdateReqDto;
 import healthtory.site.healthtory.web.dto.response.SessionUserDto;
+import healthtory.site.healthtory.web.dto.response.post.PostRespDto;
 import healthtory.site.healthtory.web.dto.response.user.UserRespDto;
 import lombok.RequiredArgsConstructor;
 
@@ -69,5 +72,18 @@ public class UserController {
         }
         UserRespDto updateResult = userService.update(personalUpdateReqDto, principal);
         return new CMRespDto<>(1, "개인정보 수정에 성공했습니다.", updateResult);
+    }
+
+    @DeleteMapping("/user/delete/{userId}")
+    public @ResponseBody CMRespDto<?> delete(@PathVariable Integer userId) {
+        SessionUserDto principal = (SessionUserDto) session.getAttribute("principal");
+        if (principal == null) {
+            return new CMRespDto<>(-1, "로그인을 진행해주세요.", null);
+        }
+        if (principal.getUserId() != principal.getUserId()) {
+            return new CMRespDto<>(-1, "로그인 아이디가 다릅니다.", null);
+        }
+        userService.deleteByUser(userId, principal);
+        return new CMRespDto<>(1, "회원탈퇴에 성공했습니다.", null);
     }
 }   
