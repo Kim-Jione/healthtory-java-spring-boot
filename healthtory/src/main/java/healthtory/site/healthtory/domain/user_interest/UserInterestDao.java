@@ -11,11 +11,16 @@ public interface  UserInterestDao {
 
 	public List<UserInterest> findAll();
 
-	public void insert(@Param("userId") Integer userId, @Param("categoryId") Integer categoryId, @Param("interestTitle") String interestTitle);
+	public void insert(UserInterest userInterest);
 
+	public void insertJoin(@Param("userId") Integer userId, @Param("categoryId") Integer categoryId, @Param("interestTitle") String interestTitle);
+
+	public void insertPersonal(@Param("userId") Integer userId, @Param("userInterest") String userInterest);
+	
 	public void update(UserInterest userInterest);
 
 	public void delete(Integer userInterestId);
+
 
 
 }

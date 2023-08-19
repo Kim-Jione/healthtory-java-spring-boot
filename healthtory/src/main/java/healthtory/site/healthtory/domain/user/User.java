@@ -23,15 +23,15 @@ public class User {
     private Timestamp updatedAt;
     
     @Builder
-    public User(String loginId, String password, String email, String insert, String nickname, Integer age,
-            String phoneNumber, Date birthday, String gender) {
-                super();
-                this.loginId = loginId;
-                this.password = password;
-                this.email = email;
-                this.nickname = nickname;
-                this.age = age;
-                this.birthday = birthday;
-                this.gender = gender;
-            }
+    public User(Integer userId, String loginId, String password, String email, String insert, String nickname, Integer age, String phoneNumber, Date birthday, String gender) {
+    super();
+    this.userId = userId;
+    this.loginId = loginId;
+    this.password = password;
+    this.email = email;
+    this.nickname = nickname;
+    this.age = age;
+    this.birthday = birthday;
+    this.gender = gender;
+    }
 }

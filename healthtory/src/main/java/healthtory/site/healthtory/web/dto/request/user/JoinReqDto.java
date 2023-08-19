@@ -24,9 +24,7 @@ public class JoinReqDto {
 
 
     public User toUser() {
-        return User.builder().loginId(this.loginId).password(this.password).email(this.email)
-                .nickname(this.nickname).age(this.age).birthday(this.birthday)
-                .gender(this.gender).build();
+        return User.builder().loginId(this.loginId).password(this.password).email(this.email).nickname(this.nickname).age(this.age).birthday(this.birthday).gender(this.gender).build();
     }
 
     public JoinReqDto(User userPS) {
