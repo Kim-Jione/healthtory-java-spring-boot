@@ -16,7 +16,6 @@ import healthtory.site.healthtory.web.dto.CMRespDto;
 import healthtory.site.healthtory.web.dto.request.qna.UpdateReqDto;
 import healthtory.site.healthtory.web.dto.request.qna.WriteReqDto;
 import healthtory.site.healthtory.web.dto.response.SessionUserDto;
-import healthtory.site.healthtory.web.dto.response.post.PostRespDto;
 import healthtory.site.healthtory.web.dto.response.qna.QnaRespDto;
 import lombok.RequiredArgsConstructor;
 

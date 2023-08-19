@@ -9,14 +9,12 @@ import lombok.NoArgsConstructor;
 @Getter
 public class Alarm {
     private Integer alarmId;
-	private String alarmContent;
-    private String alarmType;
+    private String alarmSender;
+    private String alarmReceiver;
+    private String targetId;
+    private String targetType;
+    private String message;
     private Boolean isRead;
-	private Integer userId;
-	private Integer postId;
-	private Integer commentId;
-	private Integer subscribeId;
-	private Integer qnaId;
 	private Timestamp createdAt;
 	private Timestamp updatedAt;	
 }

@@ -1,5 +1,6 @@
 package healthtory.site.healthtory.web.dto.response.post;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import healthtory.site.healthtory.domain.post.Post;
@@ -18,6 +19,8 @@ public class PostRespDto {
     private Integer categoryId;
     private String status;
     private List<String> tagList;
+	private Timestamp createdAt;
+    private Timestamp updatedAt;
 
     public static PostRespDto fromPost(Post post) {
         PostRespDto postRespDto = new PostRespDto();
@@ -28,6 +31,8 @@ public class PostRespDto {
         postRespDto.setUserId(post.getUserId());
         postRespDto.setCategoryId(post.getCategoryId());
         postRespDto.setStatus(post.getStatus());
+        postRespDto.setCreatedAt(post.getCreatedAt());
+        postRespDto.setUpdatedAt(post.getUpdatedAt());
         return postRespDto;
     }
 }

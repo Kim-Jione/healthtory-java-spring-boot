@@ -18,21 +18,19 @@
 
 	<insert id="insert">
 		INSERT
-		INTO alarm(alarm_content, alarm_type,is_read ,user_id,post_id,comment_id,subscribe_id,qna_id, created_at, updated_at)
-		VALUES(#{alarmContent}, #{alarmType},#{isRead}, #{userId}, #{postId}, #{commentId}, #{subscribeId}, #{qnaId}, now(), now())
+		INTO alarm(alarm_sender, alarm_receiver, target_id, target_type, message, is_read, created_at, updated_at)
+		VALUES(#{alarmSender}, #{alarmReceiver},#{targetId}, #{targetType},  #{message}, #{isRead}, now(), now())
 	</insert>
 
     <update id="update">
           UPDATE alarm
 		  SET 
-		  alarm_content = #{alarmContent},
-          alarm_type = #{alarmType},
+		  alarm_sender = #{alarmSender},
+          alarm_receiver = #{alarmReceiver},
+          target_id = #{targetId},
+          target_type = #{targetType},
+          message = #{message},
           is_read = #{isRead},
-          user_id = #{userId},
-          post_id = #{postId},
-          comment_id = #{commentId},
-          subscribe_id = #{subscribeId},
-		  qna_id = #{qnaId},
 		  updated_at = now()
     </update>
 

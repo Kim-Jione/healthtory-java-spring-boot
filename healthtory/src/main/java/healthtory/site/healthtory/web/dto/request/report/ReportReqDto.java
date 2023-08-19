@@ -1,5 +1,7 @@
 package healthtory.site.healthtory.web.dto.request.report;
 
+import java.sql.Timestamp;
+
 import healthtory.site.healthtory.domain.report.Report;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,13 +13,13 @@ import lombok.Setter;
 public class ReportReqDto {
     private String reportContent;
     private String reportCategory;
-    private Integer postId;
     private Integer userId;
-    private Integer commentId;
-    private Integer qnaId;
-    private Integer subscribeId;
+	private Integer targetId;
+    private String targetType;
+	private Timestamp createdAt;
+    private Timestamp updatedAt;
 
     public Report toReport() {
-        return Report.builder().reportContent(reportContent).reportCategory(reportCategory).postId(postId).userId(userId).commentId(commentId).qnaId(qnaId).subscribeId(subscribeId).build();
+        return Report.builder().reportContent(reportContent).reportCategory(reportCategory).userId(userId).targetId(targetId).targetType(targetType).build();
     }
 }

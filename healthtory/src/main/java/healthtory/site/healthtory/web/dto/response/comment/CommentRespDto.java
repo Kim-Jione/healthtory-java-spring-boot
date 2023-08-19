@@ -1,6 +1,8 @@
 package healthtory.site.healthtory.web.dto.response.comment;
 
 
+import java.sql.Timestamp;
+
 import healthtory.site.healthtory.domain.comment.Comment;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +17,9 @@ public class CommentRespDto {
     private Integer userId;
     private String commentContent;
     private Integer parentCommentId;
-
+	private Timestamp createdAt;
+    private Timestamp updatedAt;
+    
     public static CommentRespDto fromComment(Comment comment) {
         CommentRespDto commentRespDto = new CommentRespDto();
         commentRespDto.setCommentId(comment.getCommentId());
@@ -23,6 +27,8 @@ public class CommentRespDto {
         commentRespDto.setUserId(comment.getUserId());
         commentRespDto.setCommentContent(comment.getCommentContent());
         commentRespDto.setParentCommentId(comment.getParentCommentId());
+        commentRespDto.setCreatedAt(comment.getCreatedAt());
+        commentRespDto.setUpdatedAt(comment.getUpdatedAt());
         return commentRespDto;
     }
 }

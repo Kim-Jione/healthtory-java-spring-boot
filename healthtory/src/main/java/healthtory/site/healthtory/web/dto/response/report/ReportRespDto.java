@@ -1,4 +1,6 @@
 package healthtory.site.healthtory.web.dto.response.report;
+import java.sql.Timestamp;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -6,11 +8,12 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ReportRespDto {
+    private Integer reportId;
     private String reportContent;
     private String reportCategory;
-    private Integer postId;
     private Integer userId;
-    private Integer commentId;
-    private Integer qnaId;
-    private Integer subscribeId;
+    private Integer targetId;
+    private String targetType;
+	private Timestamp createdAt;
+    private Timestamp updatedAt;
 }
