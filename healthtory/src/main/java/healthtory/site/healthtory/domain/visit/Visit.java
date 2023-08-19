@@ -11,9 +11,10 @@ public class Visit {
     private Integer visitId;
 	private Integer userId;
 	private Integer postId;
-	private Integer duration;
-	private String referrer;
-	private String ipAddress;
+	private Integer previousPostId;
+	private Timestamp startTime;
+	private Timestamp endTime;
+	private Integer durationSecond;
 	private Timestamp createdAt;
 	private Timestamp updatedAt;	
 }

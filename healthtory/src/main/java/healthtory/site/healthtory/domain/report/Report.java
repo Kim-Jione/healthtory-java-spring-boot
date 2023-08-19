@@ -13,22 +13,18 @@ public class Report {
     private String reportContent;
     private String reportCategory;
 	private Integer userId;
-    private Integer postId;
-    private Integer qnaId;
-    private Integer commentId;
-    private Integer subscribeId;
+	private Integer targetId;
+    private String targetType;
 	private Timestamp createdAt;
     private Timestamp updatedAt;
     
     @Builder
-    public Report(String reportContent, String reportCategory, Integer userId, Integer postId, Integer qnaId, Integer commentId, Integer subscribeId) {
+    public Report(String reportContent, String reportCategory, Integer userId, Integer targetId, String targetType) {
         super();
         this.reportContent = reportContent;    
         this.reportCategory = reportCategory;
         this.userId = userId;
-        this.postId = postId;
-        this.qnaId = qnaId;
-        this.commentId = commentId;
-        this.subscribeId = commentId;
+        this.targetId = targetId;
+        this.targetType = targetType;
     }
 }
