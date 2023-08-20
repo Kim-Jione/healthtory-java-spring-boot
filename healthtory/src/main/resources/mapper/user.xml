@@ -24,15 +24,12 @@
 	<insert id="insert">
 		INSERT
 		INTO user(login_id, password, email, nickname, age, birthday, gender, profile_img, created_at, updated_at)
-		VALUES(#{loginId},#{password},#{email},#{nickname},#{age}, #{birthday}, #{gender},#{profileImg}, now(), now())
+		VALUES(#{loginId}, #{password}, #{email},#{nickname},#{age}, #{birthday}, #{gender},#{profileImg}, now(), now());
 	</insert>
 
     <update id="update">
           UPDATE user
 		  SET 
-          login_id = #{loginId},
-          password = #{password},
-          name = #{name},
           email = #{email},
           nickname = #{nickname},
           age = #{age},
@@ -40,7 +37,15 @@
           gender = #{gender},
           profile_img = #{profileImg},
 		  updated_at = now()
+		  WHERE user_id = #{userId}
     </update>
+
+    <update id="updatePassword">
+		UPDATE user
+		SET 
+		password = #{password}
+		WHERE user_id = #{userId}
+  </update>
 
 	<delete id="delete">
 		DELETE FROM user WHERE user_id = #{userId}

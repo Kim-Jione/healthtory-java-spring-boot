@@ -2,8 +2,11 @@ package healthtory.site.healthtory.web;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,7 +16,10 @@ import healthtory.site.healthtory.service.UserService;
 import healthtory.site.healthtory.web.dto.CMRespDto;
 import healthtory.site.healthtory.web.dto.request.user.JoinReqDto;
 import healthtory.site.healthtory.web.dto.request.user.LoginReqDto;
+import healthtory.site.healthtory.web.dto.request.user.PasswordUpdateReqDto;
+import healthtory.site.healthtory.web.dto.request.user.PersonalUpdateReqDto;
 import healthtory.site.healthtory.web.dto.response.SessionUserDto;
+import healthtory.site.healthtory.web.dto.response.user.UserRespDto;
 import lombok.RequiredArgsConstructor;
 
 
@@ -29,8 +35,8 @@ public class UserController {
         if (joinByUser != null) {
             return new CMRespDto<>(-1, "이미 존재하는 사용자입니다.", joinByUser);
         }
-        JoinReqDto joinRespDto = userService.join(joinReqDto);
-        return new CMRespDto<>(1, "회원가입 성공했습니다.", joinRespDto);
+        UserRespDto joinResultDto = userService.join(joinReqDto);
+        return new CMRespDto<>(1, "회원가입 성공했습니다.", joinResultDto);
     }
 
     @PostMapping("/user/login")
@@ -44,11 +50,6 @@ public class UserController {
         return new CMRespDto<>(1, "로그인 성공했습니다.", principal);
     }
 
-    @GetMapping("/user/loginForm")
-    public CMRespDto<?> loginForm() {
-        return new CMRespDto<>(1, "로그인 화면 불러오기 성공.", null);
-    }
-
     @GetMapping("/user/logout")
     public CMRespDto<?> logout() {
         SessionUserDto principal = (SessionUserDto) session.getAttribute("principal");
@@ -59,4 +60,44 @@ public class UserController {
         return new CMRespDto<>(1, "로그아웃 되었습니다.", principal);
     }
 
+    @PutMapping("/user/update")
+    public @ResponseBody CMRespDto<?> update(
+            @RequestBody PersonalUpdateReqDto personalUpdateReqDto) {
+        SessionUserDto principal = (SessionUserDto) session.getAttribute("principal");
+        if (principal == null) {
+            return new CMRespDto<>(-1, "로그인을 진행해주세요.", null);
+        }
+        if (principal.getUserId() != personalUpdateReqDto.getUserId()) {
+            return new CMRespDto<>(-1, "로그인 아이디가 다릅니다.", null);
+        }
+        UserRespDto updateResult = userService.update(personalUpdateReqDto, principal);
+        return new CMRespDto<>(1, "개인정보 수정에 성공했습니다.", updateResult);
+    }
+
+    @DeleteMapping("/user/delete/{userId}")
+    public @ResponseBody CMRespDto<?> delete(@PathVariable Integer userId) {
+        SessionUserDto principal = (SessionUserDto) session.getAttribute("principal");
+        if (principal == null) {
+            return new CMRespDto<>(-1, "로그인을 진행해주세요.", null);
+        }
+        if (principal.getUserId() != principal.getUserId()) {
+            return new CMRespDto<>(-1, "로그인 아이디가 다릅니다.", null);
+        }
+        userService.deleteByUser(userId, principal);
+        return new CMRespDto<>(1, "회원탈퇴에 성공했습니다.", null);
+    }
+
+    @PutMapping("/user/password/update")
+    public @ResponseBody CMRespDto<?> updatePassword(
+            @RequestBody PasswordUpdateReqDto passwordUpdateReqDto) {
+        SessionUserDto principal = (SessionUserDto) session.getAttribute("principal");
+        if (principal == null) {
+            return new CMRespDto<>(-1, "로그인을 진행해주세요.", null);
+        }
+        if (principal.getUserId() != passwordUpdateReqDto.getUserId()) {
+            return new CMRespDto<>(-1, "로그인 아이디가 다릅니다.", null);
+        }
+        UserRespDto updateResult = userService.updatePassword(passwordUpdateReqDto, principal);
+        return new CMRespDto<>(1, "비밀번호 수정에 성공했습니다.", updateResult.getPassword());
+    }
 }   

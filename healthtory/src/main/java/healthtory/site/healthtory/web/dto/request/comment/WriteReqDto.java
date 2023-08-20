@@ -10,11 +10,12 @@ import lombok.Setter;
 @Setter
 public class WriteReqDto {
 	private Integer userId;
-	private Integer postId;
+	private Integer targetId;
+	private String targetType;
     private String commentContent;
     private Integer parentCommentId;
 
     public Comment toComment() {
-            return Comment.builder().userId(this.userId).postId(this.postId).commentContent(this.commentContent).parentCommentId(this.parentCommentId).build();
+            return Comment.builder().userId(this.userId).targetId(this.targetId).targetType(this.targetType).commentContent(this.commentContent).parentCommentId(this.parentCommentId).build();
         }
 }
