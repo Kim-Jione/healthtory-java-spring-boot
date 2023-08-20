@@ -10,17 +10,18 @@ public class Comment {
 	private String commentContent;
     private Integer parentCommentId;
 	private Integer userId;
-	private Integer postId;
-	private Integer qnaId;
+	private Integer targetId;
+	private String targetType;
 	private Timestamp createdAt;
 	private Timestamp updatedAt;
 	
 	@Builder
-    public Comment(Integer commentId,Integer userId,Integer postId, String commentContent,Integer parentCommentId) {
+    public Comment(Integer commentId,Integer userId,Integer targetId, String commentContent,String targetType, Integer parentCommentId) {
         super();
         this.commentId = commentId;
         this.userId = userId;
-        this.postId = postId;
+        this.targetId = targetId;
+        this.targetType = targetType;
         this.commentContent = commentContent;
         this.parentCommentId = parentCommentId;
     }

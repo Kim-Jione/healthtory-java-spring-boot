@@ -13,7 +13,8 @@ import lombok.Setter;
 @Setter
 public class CommentRespDto {
     private Integer commentId;
-    private Integer postId;
+    private Integer targetId;
+    private String targetType;
     private Integer userId;
     private String commentContent;
     private Integer parentCommentId;
@@ -23,7 +24,8 @@ public class CommentRespDto {
     public static CommentRespDto fromComment(Comment comment) {
         CommentRespDto commentRespDto = new CommentRespDto();
         commentRespDto.setCommentId(comment.getCommentId());
-        commentRespDto.setPostId(comment.getPostId());
+        commentRespDto.setTargetId(comment.getTargetId());
+        commentRespDto.setTargetType(comment.getTargetType());
         commentRespDto.setUserId(comment.getUserId());
         commentRespDto.setCommentContent(comment.getCommentContent());
         commentRespDto.setParentCommentId(comment.getParentCommentId());

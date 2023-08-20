@@ -16,9 +16,9 @@ import healthtory.site.healthtory.service.UserService;
 import healthtory.site.healthtory.web.dto.CMRespDto;
 import healthtory.site.healthtory.web.dto.request.user.JoinReqDto;
 import healthtory.site.healthtory.web.dto.request.user.LoginReqDto;
+import healthtory.site.healthtory.web.dto.request.user.PasswordUpdateReqDto;
 import healthtory.site.healthtory.web.dto.request.user.PersonalUpdateReqDto;
 import healthtory.site.healthtory.web.dto.response.SessionUserDto;
-import healthtory.site.healthtory.web.dto.response.post.PostRespDto;
 import healthtory.site.healthtory.web.dto.response.user.UserRespDto;
 import lombok.RequiredArgsConstructor;
 
@@ -85,5 +85,19 @@ public class UserController {
         }
         userService.deleteByUser(userId, principal);
         return new CMRespDto<>(1, "회원탈퇴에 성공했습니다.", null);
+    }
+
+    @PutMapping("/user/password/update")
+    public @ResponseBody CMRespDto<?> updatePassword(
+            @RequestBody PasswordUpdateReqDto passwordUpdateReqDto) {
+        SessionUserDto principal = (SessionUserDto) session.getAttribute("principal");
+        if (principal == null) {
+            return new CMRespDto<>(-1, "로그인을 진행해주세요.", null);
+        }
+        if (principal.getUserId() != passwordUpdateReqDto.getUserId()) {
+            return new CMRespDto<>(-1, "로그인 아이디가 다릅니다.", null);
+        }
+        UserRespDto updateResult = userService.updatePassword(passwordUpdateReqDto, principal);
+        return new CMRespDto<>(1, "비밀번호 수정에 성공했습니다.", updateResult.getPassword());
     }
 }   

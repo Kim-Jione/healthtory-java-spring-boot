@@ -23,7 +23,7 @@ public class User {
     private Timestamp updatedAt;
     
     @Builder
-    public User(Integer userId, String loginId, String password, String email, String insert, String nickname, Integer age, String phoneNumber, Date birthday, String gender) {
+    public User(Integer userId, String loginId, String password, String email, String insert, String nickname, Integer age, String phoneNumber, Date birthday, String gender, Timestamp createdAt, Timestamp updatedAt) {
     super();
     this.userId = userId;
     this.loginId = loginId;
@@ -33,5 +33,7 @@ public class User {
     this.age = age;
     this.birthday = birthday;
     this.gender = gender;
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
     }
 }

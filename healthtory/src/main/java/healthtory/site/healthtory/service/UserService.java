@@ -12,6 +12,7 @@ import healthtory.site.healthtory.domain.user_interest.UserInterestDao;
 import healthtory.site.healthtory.util.SHA256;
 import healthtory.site.healthtory.web.dto.request.user.JoinReqDto;
 import healthtory.site.healthtory.web.dto.request.user.LoginReqDto;
+import healthtory.site.healthtory.web.dto.request.user.PasswordUpdateReqDto;
 import healthtory.site.healthtory.web.dto.request.user.PersonalUpdateReqDto;
 import healthtory.site.healthtory.web.dto.response.SessionUserDto;
 import healthtory.site.healthtory.web.dto.response.user.UserRespDto;
@@ -78,6 +79,15 @@ public class UserService {
 
     public void deleteByUser(Integer userId, SessionUserDto principal) {
         userDao.delete(userId);
+    }
+
+    public UserRespDto updatePassword(PasswordUpdateReqDto passwordUpdateReqDto, SessionUserDto principal) {
+        String enPassword = sha256.encrypt(passwordUpdateReqDto.getPassword()); // 비밀번호 암호화
+        passwordUpdateReqDto.setPassword(enPassword);
+        userDao.updatePassword(passwordUpdateReqDto);
+        User user = userDao.findById(principal.getUserId());
+        UserRespDto updateResult = PasswordUpdateReqDto.fromUser(user);
+        return updateResult;
     }
 
 }
